@@ -6,4 +6,7 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
+  moduleNameMapper: {
+    '^constants/(.*)$': '<rootDir>/src/main/constants/$1',
+  },
 };
