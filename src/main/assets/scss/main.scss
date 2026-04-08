@@ -1,1 +1,12 @@
 @import 'govuk-frontend';
+
+.create-task-button, .save-task-buttons {
+  text-align: right;
+}
+
+div.govuk-button-group.save-task-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}

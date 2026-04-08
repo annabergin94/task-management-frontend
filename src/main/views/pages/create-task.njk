@@ -1,0 +1,63 @@
+{% extends "layouts/template.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Create Task</h1>
+
+      {% if errors %}
+        {{ govukErrorSummary({
+          titleText: "Incorrect or incomplete details",
+          errorList: errorList
+        }) }}
+      {% endif %}
+
+      <form action="/create" method="post" novalidate>
+
+        {{ govukInput({
+          label: { text: "Title", classes: "govuk-label--m" },
+          id: "title",
+          name: "title",
+          value: formData.title,
+          errorMessage: errors.title if errors.title
+        }) }}
+
+        {{ govukTextarea({
+          label: { text: "Description (optional)", classes: "govuk-label--m" },
+          id: "description",
+          name: "description"
+        }) }}
+
+        {{ govukSelect({
+          label: { text: "Status", classes: "govuk-label--m" },
+          id: "status",
+          name: "status",
+          items: statusItems
+        }) }}
+
+        {{ govukDateInput({
+           id: "dueDate",
+           namePrefix: "dueDate",
+           fieldset: {
+            legend: { text: "Due date", classes: "govuk-fieldset__legend--m" }
+            },
+            hint: { text: "For example, 06/04/2026" }
+}) }}
+
+        <div class="govuk-button-group save-task-buttons">
+          {{ govukButton({text: "Save Task" }) }}
+
+          <a class="govuk-link" href="/">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
