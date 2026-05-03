@@ -17,7 +17,7 @@ export default function (app: Application): void {
     }
   });
 
-  app.get('/tasks/create', (_req, res) => {
+  app.get('/tasks', (_req, res) => {
     res.render('pages/create-task', { statusItems: STATUS_ITEMS });
   });
 
@@ -44,7 +44,7 @@ export default function (app: Application): void {
       });
     }
     try {
-      await axios.post(`${BASE_URL}/create`, buildCreateTaskPayload(req.body), {
+      await axios.post(`${BASE_URL}`, buildCreateTaskPayload(req.body), {
         headers: { 'Content-Type': 'application/json' },
       });
       res.redirect('/');
@@ -54,10 +54,10 @@ export default function (app: Application): void {
     }
   });
 
-  app.post('/delete/:id', async (req, res) => {
+  app.post('/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      await axios.delete(`${BASE_URL}/delete/${id}`);
+      await axios.delete(`${BASE_URL}/${id}`);
       res.redirect('/');
     } catch (error) {
       console.error('Error deleting task:', error);
