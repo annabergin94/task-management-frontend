@@ -1,0 +1,30 @@
+{% extends "layouts/template.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block containerStart %}
+  {{ govukBackLink({ text: "Back", href: "/" }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Update Task Status</h1>
+
+      <form action="/{{ id }}/status" method="post">
+        {{ govukSelect({
+          label: { text: "Status", classes: "govuk-label--m" },
+          id: "status",
+          name: "status",
+          items: statusItems
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Update" }) }}
+          <a class="govuk-link" href="/">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
